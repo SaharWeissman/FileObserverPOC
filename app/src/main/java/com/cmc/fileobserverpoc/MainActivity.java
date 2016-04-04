@@ -2,6 +2,7 @@ package com.cmc.fileobserverpoc;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,7 +14,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.cmc.fileobserverpoc.config.FileObserverConfig;
 import com.cmc.fileobserverpoc.entities.MyFileObserver;
+import com.cmc.fileobserverpoc.service.FileObserverService;
 import com.cmc.fileobserverpoc.test.FileObserverTester;
 
 import java.io.File;
@@ -21,13 +24,14 @@ import java.io.File;
 /**
  * Created by Sahar on 04/04/2016.
  */
-public class MainActivity extends Activity implements MyFileObserver.FileObserverListener {
+public class MainActivity extends Activity implements FileObserverManager.FileObserverListener {
 
     private final String TAG = "MainActivity";
     private MyFileObserver mFileObserver = null;
     private final int REQ_CODE_WRITE_EXTERNAL_STORAGE = 0;
     private final String TEST_DIR = "FileObserverTester";
     private File mDirObserved;
+
 
     private final int MENU_ITEM_CREATE_FILE = 0;
 
@@ -132,8 +136,13 @@ public class MainActivity extends Activity implements MyFileObserver.FileObserve
     }
 
     private void initFileObserver() {
-        mFileObserver = new MyFileObserver(mDirObserved, this);
-        mFileObserver.startWatching();
+        Intent startServiceIntent = new Intent(this, FileObserverService.class);
+        startServiceIntent.putExtra(FileObserverService.EXTRA_ACTION, FileObserverService.EXTRA_ACTION_START);
+        startServiceIntent.putExtra(FileObserverService.EXTRA_DIR_FILE, mDirObserved);
+        startServiceIntent.putExtra(FileObserverService.EXTRA_MASK, FileObserverConfig.FILE_OBSERVER_MASK);
+
+        startService(startServiceIntent);
+        FileObserverManager.getInstance().addListener(this);
     }
 
 

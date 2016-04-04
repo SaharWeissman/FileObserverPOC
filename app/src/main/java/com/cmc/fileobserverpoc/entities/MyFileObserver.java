@@ -3,6 +3,8 @@ package com.cmc.fileobserverpoc.entities;
 import android.os.FileObserver;
 import android.util.Log;
 
+import com.cmc.fileobserverpoc.FileObserverManager;
+
 import java.io.File;
 
 /**
@@ -11,16 +13,17 @@ import java.io.File;
 public class MyFileObserver extends FileObserver {
 
     private final String TAG = "MyFileObserver";
-    private final FileObserverListener mListener;
+    private final FileObserverManager.FileObserverListener mListener;
+    private final File mBaseDir;
 
-    public MyFileObserver(File dirObserved, int mask, FileObserverListener listener){
+    public MyFileObserver(File dirObserved, int mask, FileObserverManager.FileObserverListener listener){
         super(dirObserved.getAbsolutePath(), mask);
         this.mListener = listener;
+        this.mBaseDir = dirObserved;
     }
 
-    public MyFileObserver(File dirObserved, FileObserverListener listener) {
-        super(dirObserved.getAbsolutePath());
-        this.mListener = listener;
+    public MyFileObserver(File dirObserved, FileObserverManager.FileObserverListener listener) {
+        this(dirObserved, FileObserver.ALL_EVENTS, listener);
     }
 
     /**
@@ -37,7 +40,7 @@ public class MyFileObserver extends FileObserver {
         }
     }
 
-    public interface FileObserverListener {
-        void onEvent(int event, String path);
+    public File getBaseDir(){
+        return this.mBaseDir;
     }
 }
