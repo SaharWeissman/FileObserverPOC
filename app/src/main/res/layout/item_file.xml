@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000">
+    <TextView
+        android:id="@+id/txtV_file_item_path"
+        android:textSize="@dimen/text_small"
+        android:text="file_abs_path"
+        android:textColor="@color/file_path_default"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

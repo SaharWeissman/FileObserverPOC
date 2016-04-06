@@ -21,26 +21,26 @@ public class FileObserverService extends Service implements FileObserverManager.
     public static final String EXTRA_DIR_FILE = "dirFile";
     public static final String EXTRA_MASK = "mask";
 
-    public static final int EXTRA_ACTION_START = 0;
+    public static final int EXTRA_ACTION_START_MONITORING = 0;
     public static final int EXTRA_ACTION_STOP = 1;
     private MyFileObserver mFileObserver = null;
 
     private final String TAG = "FileObserverService";
-    private File mDirFile = null;
+    private File mRootDirFile = null;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if(intent != null){
             int action = intent.getIntExtra(EXTRA_ACTION, -1);
             switch (action){
-                case EXTRA_ACTION_START:{
-                    mDirFile = (File) intent.getExtras().get(EXTRA_DIR_FILE);
+                case EXTRA_ACTION_START_MONITORING:{
+                    mRootDirFile = (File) intent.getExtras().get(EXTRA_DIR_FILE);
 
                     final int mask = intent.getIntExtra(EXTRA_MASK, FileObserver.ALL_EVENTS);
                     Thread startThread = new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            handleStartFileObserver(mDirFile, mask, FileObserverService.this);
+                            handleStartFileObserver(mRootDirFile, mask, FileObserverService.this);
                         }
                     });
                     startThread.start();
@@ -88,6 +88,6 @@ public class FileObserverService extends Service implements FileObserverManager.
     @Override
     public void onEvent(int event, String path) {
         Log.d(TAG, "onEvent: event = " + event + ", path = " + path);
-        FileObserverManager.getInstance().notifyListeners(mDirFile.getAbsolutePath() + "/" + path, event);
+        FileObserverManager.getInstance().notifyListeners(path, event);
     }
 }

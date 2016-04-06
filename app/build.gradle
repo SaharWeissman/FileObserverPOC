@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.cmc.fileobserverpoc"
-        minSdkVersion 8
+        minSdkVersion 9
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -23,4 +23,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.2.1'
+
+    // for google drive
+    compile 'com.google.android.gms:play-services-drive:8.4.0'
 }

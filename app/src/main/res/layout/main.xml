@@ -1,5 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#000">
+    <TextView
+        android:id="@+id/txtV_dir_observed"
+        android:paddingBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dir observerd:"
+        android:textColor="@color/text_main"
+        android:textSize="@dimen/text_main"/>
 
+    <TextView
+        android:id="@+id/txtV_dir_list_files"
+        android:layout_below="@id/txtV_dir_observed"
+        android:text="@string/list_files"
+        android:textSize="@dimen/text_main"
+        android:textColor="@color/text_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <ScrollView
+        android:id="@+id/scrlV_dir_files"
+        android:layout_below="@id/txtV_dir_observed"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
+        <ListView
+            android:id="@+id/lstV_dir_files"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </ListView>
+    </ScrollView>
+
+    <TextView
+        android:paddingTop="10dp"
+        android:layout_below="@id/scrlV_dir_files"
+        android:id="@+id/txtV_google_drive_opertaions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Google drive last operation:"
+        android:textSize="@dimen/text_main"
+        android:textColor="@color/text_main"/>
 </RelativeLayout>

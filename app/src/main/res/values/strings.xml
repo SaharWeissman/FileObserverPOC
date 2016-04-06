@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FileObserverPOC</string>
+    <string name="list_files">Files in dir:</string>
 </resources>
